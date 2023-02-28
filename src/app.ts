@@ -103,10 +103,26 @@ class ProjectInput {
     const userDescription = this.descriptionInputElement.value;
     const userPeople = this.peopleInputElement.value;
 
+    const validatableTitle: Validatable = {
+      value: userTitle,
+      required: true
+    }
+    const validatableDesc: Validatable = {
+      value: userDescription,
+      required: true,
+      minLength: 5
+    }
+    const validatablePeople: Validatable = {
+      value: userPeople,
+      required: true,
+      min: 1,
+      max: 5
+    }
+
     if (
-      userTitle.trim().length === 0 ||
-      userDescription.trim().length === 0 ||
-      userPeople.trim().length === 0
+     !validate(validatableTitle) ||
+     !validate(validatableDesc) ||
+     !validate(validatablePeople)
     ) {
       alert("This is not a valid input.");
       return;
