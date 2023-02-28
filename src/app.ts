@@ -5,8 +5,8 @@ function Autobind(_: any, _2: string, descriptor: PropertyDescriptor) {
     get() {
       const boundFn = originalMethod.bind(this);
       return boundFn;
-    }
-  }
+    },
+  };
   return newMethod;
 }
 
@@ -29,20 +29,26 @@ class ProjectInput {
       true
     );
     this.formElement = importedNode.firstElementChild as HTMLFormElement;
-    this.formElement.id = 'user-input';
+    this.formElement.id = "user-input";
 
     this.titleInputElement = this.formElement.querySelector(
-      '#title'
+      "#title"
     ) as HTMLInputElement;
     this.descriptionInputElement = this.formElement.querySelector(
-      '#description'
+      "#description"
     ) as HTMLInputElement;
     this.peopleInputElement = this.formElement.querySelector(
-      '#people'
+      "#people"
     ) as HTMLInputElement;
 
     this.configure();
     this.attach();
+  }
+
+  private clearInputs() {
+    this.titleInputElement.value = '';
+    this.descriptionInputElement.value = '';
+    this.peopleInputElement.value = '';
   }
 
   private getUserInput(): [string, string, number] | void {
@@ -50,11 +56,15 @@ class ProjectInput {
     const userDescription = this.descriptionInputElement.value;
     const userPeople = this.peopleInputElement.value;
 
-    if (userTitle.trim().length === 0 || userDescription.trim().length === 0 || userPeople.trim().length === 0) {
-      alert('This is not a valid input.');
+    if (
+      userTitle.trim().length === 0 ||
+      userDescription.trim().length === 0 ||
+      userPeople.trim().length === 0
+    ) {
+      alert("This is not a valid input.");
       return;
     } else {
-      return [userTitle, userDescription, +userPeople]
+      return [userTitle, userDescription, +userPeople];
     }
   }
 
@@ -63,13 +73,14 @@ class ProjectInput {
     event.preventDefault();
     const userInput = this.getUserInput();
     if (Array.isArray(userInput)) {
-      const [title, desc, people] = userInput
+      const [title, desc, people] = userInput;
       console.log(title, desc, `${people} People`);
+      this.clearInputs();
     }
   }
 
   private configure() {
-    this.formElement.addEventListener('submit', this.submitHandler)
+    this.formElement.addEventListener("submit", this.submitHandler);
   }
 
   private attach() {
